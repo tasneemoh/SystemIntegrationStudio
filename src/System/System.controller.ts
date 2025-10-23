@@ -1,5 +1,5 @@
 import { Body, Controller, Post, UsePipes, ValidationPipe } from "@nestjs/common";
-import { CreateSystemDto } from "./Dto/CreateSystremDto";
+import { CreateSystemDto } from "./Dto/CreateSystemDto";
 import { SystemService } from "./System.service";
 
 

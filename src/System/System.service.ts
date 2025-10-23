@@ -2,7 +2,7 @@ import { Injectable, Post } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { System, SystemDocument } from "../Schemas/System.schema";
 import { Model } from "mongoose";
-import { CreateSystemDto } from "./Dto/CreateSystremDto";
+import { CreateSystemDto } from "./Dto/CreateSystemDto";
 
 
 @Injectable({})

@@ -2,7 +2,12 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { WorkFlow } from "./WorkFlow.schema";
 import mongoose from "mongoose";
 
-
+export enum AuthenticationType
+{
+    apiKey = 'apiKey',
+    basic = 'basic',
+    auth2 = 'auth2'
+}
 @Schema()
 
 export class Environment
@@ -13,8 +18,8 @@ export class Environment
     @Prop({ required: true})
     BaseUrl: string;
     
-    @Prop({ required: true })
-    type: string; // apiKey, basic, oauth
+    @Prop({ required: true, enum: AuthenticationType })
+    authType: AuthenticationType; // apiKey, basic, oauth
 
     @Prop()
     apiKey?: string;
@@ -28,8 +33,8 @@ export class Environment
     @Prop()
     token?: string;
 
-    @Prop({type: [{type: mongoose.Schema.ObjectId, ref: WorkFlow.name}]})
-    WorkFlows : WorkFlow[]
+    // @Prop({type: [{type: mongoose.Schema.ObjectId, ref: WorkFlow.name}]})
+    // WorkFlows : WorkFlow[]
 }
 
 export const EnvironmentSchema = SchemaFactory.createForClass(Environment)

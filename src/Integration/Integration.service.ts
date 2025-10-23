@@ -14,7 +14,7 @@ export class IntegrationService
 
     async CreateIntegration({SystemName, ...createIntegrationDto}: CreateIntegrationDto)
     {
-        const system = this.SystemModel.findOne({Name: SystemName});
+        const system = await this.SystemModel.findOne({Name: SystemName});
         if(!system) throw new HttpException("System Not found", 404)
 
         const newIntegration = new this.integrationModel(createIntegrationDto);

@@ -15,7 +15,7 @@ export class EnvironmentService
 
     async CreateEnvironment({SystemName,...createEnvironmentDto}: CreateEnvironmentDto)
     {
-        const system = this.SystemModel.find({Name: SystemName});
+        const system = await this.SystemModel.findOne({Name: SystemName});
         if(!system) {throw new HttpException("System Not found", 404)}
 
         const newEnvironment = new this.EnvironmentModel(createEnvironmentDto);

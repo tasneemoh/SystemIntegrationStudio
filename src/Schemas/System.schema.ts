@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose, { Document } from "mongoose";
 import { Integration } from "./Integration.schema";
 import { Environment } from "./Environment.schema";
+import { EndPoint } from "./EndPoint.schema";
 
 
 @Schema()
@@ -30,8 +31,11 @@ export class System
 
     @Prop({type: [{type: mongoose.Schema.ObjectId, ref: Integration.name}]})
     Integrations : Integration[]
+
+    @Prop({type: [{type: mongoose.Schema.ObjectId, ref: EndPoint.name}]})
+    EndPoints : EndPoint[]
 }
-//todo test this
+
 export type SystemDocument = System & Document;
 
 export const SystemSchema = SchemaFactory.createForClass(System);

@@ -6,6 +6,8 @@ import { SystemModule } from './System/System.module';
 import { IntegrationModule } from './Integration/Integration.module';
 import { WorkFlowModule } from './WorkFlow/WorkFlow.module';
 import { EnvironmentModule } from './Environment/Environment.module';
+import { ExecutorModule } from './executor/executor.module';
+import { EndPointModule } from './EndPoint/EndPoint.module';
 
 
 @Module({
@@ -13,7 +15,9 @@ import { EnvironmentModule } from './Environment/Environment.module';
     SystemModule,
     IntegrationModule,
     WorkFlowModule,
-    EnvironmentModule
+    EnvironmentModule,
+    ExecutorModule,
+    EndPointModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,5 +1,6 @@
 import { IsNotEmpty } from "@nestjs/class-validator";
 import { IsOptional } from "class-validator";
+import { AuthenticationType } from "src/Schemas/Environment.schema";
 
 
 export class CreateEnvironmentDto 
@@ -11,7 +12,7 @@ export class CreateEnvironmentDto
     BaseUrl: string;
 
     @IsNotEmpty()
-    type: string; 
+    authType: AuthenticationType;
     @IsOptional()
     apiKey?: string;
 

@@ -1,20 +1,74 @@
-import { Prop, Schema } from "@nestjs/mongoose";
+import { System } from "./System.schema";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { EndPoint } from "./EndPoint.schema";
+import mongoose from "mongoose";
+import { Environment } from "./Environment.schema";
+
+
+export enum stepTypeEnum{
+  httpCall = 'httpcall',
+  transform = 'transform',
+  delay = 'delay'
+}
+
+export enum FieldTypeEnum{
+  string = 'string',
+  boolean = 'boolean',
+  date = 'date',
+  number = 'number'
+}
+
+export enum transformValueTypeEnum{
+  defaultValue = 'defaultValue',
+  //concat = 'concat',
+  //formatDate = 'formatDate',
+  mapValue = 'mapValue'
+}
+
+export class arraySelector {
+  index? : number;
+  filterField? : string;
+  filterValue? : string;
+}
+
+export class TransformRule
+{
+    @Prop({ required: true })
+  SourceField?: string;
+
+    @Prop({ required: false })
+  DestinationField?: string;
+
+    @Prop({ required: false, enum: FieldTypeEnum })
+  DestinationFieldType?: FieldTypeEnum;
+
+  DefaultValue?: string;
+
+    @Prop({ enum: transformValueTypeEnum, required: true })
+  ValueType : transformValueTypeEnum;
+
+  @Prop()
+    arraySelector?: arraySelector
+}
+
 
 
 @Schema()
 export class WorkFlowStep {
-  @Prop({ required: true })
-  type: string; // e.g., httpCall, transform, delay
+  @Prop({ required: true, enum: stepTypeEnum })
+  type: stepTypeEnum; // e.g., httpCall, transform, delay
 
-  @Prop()
-  system?: string;
+  @Prop({type: mongoose.Schema.Types.ObjectId, ref: 'System'})
+  system?: System;
 
-  @Prop()
-  endpoint?: string;
+  @Prop({type: mongoose.Schema.Types.ObjectId, ref: EndPoint.name})
+  endpoint?: EndPoint;
 
-  @Prop()
-  method?: string;
+  @Prop({type: mongoose.Schema.Types.ObjectId, ref: Environment.name})
+  environment: Environment;
 
-  @Prop({ type: Object })
-  transform?: Record<string, string>;
+  @Prop({ type: [TransformRule], default: [] })
+  transform?: TransformRule[]
 }
+
+export const WorkFlowStepSchema = SchemaFactory.createForClass(WorkFlowStep)
